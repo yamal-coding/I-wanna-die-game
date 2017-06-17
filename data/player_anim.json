@@ -1,0 +1,4 @@
+{
+	"static" : {"sx":0,"sy":0,"tileW":28,"tileH":28,"frames":1},
+	"dying" : {"sx":28,"sy":0,"tileW":28,"tileH":28,"frames":5}
+}
