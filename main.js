@@ -26,7 +26,6 @@ var game = function() {
 
         Q.stageTMX("nivel2.tmx", stage);
 
-        //Q.state.reset({goalScore: 4, currentScore: 0, lifes: 0, godMode: 0, nivel: "nivel1", terminado: false});
         Q.state.set("goalScore", 1);
         Q.state.set("currentScore", 0);
         Q.state.set("nivel", 2);
@@ -91,10 +90,10 @@ var game = function() {
         stage.insert(new Q.Obstaculo_lineal({recorrido: 108, sentido: false, duration: 1, x: 530, y: 200}));
     });
 
-    Q.scene("nivel5", function(stage){
+    Q.scene("nivel_5", function(stage){ //Hemos decidido eliminar este nivel del juego final ya que generaba problemas de colisiones multiples con objetos dejando al jugador sin vidas
         stage.insert(new Q.Repeater({ asset: "fondo.png", speedX: 0.5, speedY: 0.5, type: 0 }));
 
-        Q.stageTMX("nivel5.tmx", stage);
+        Q.stageTMX("nivel_5.tmx", stage);
 
         Q.state.set("goalScore", 3);
         Q.state.set("currentScore", 0);
@@ -103,15 +102,15 @@ var game = function() {
         Q.state.set("terminado", false);
     });
 
-    Q.scene("nivel6", function(stage){
+    Q.scene("nivel5", function(stage){
         stage.insert(new Q.Repeater({ asset: "fondo.png", speedX: 0.5, speedY: 0.5, type: 0 }));
 
-        Q.stageTMX("nivel6.tmx", stage);
+        Q.stageTMX("nivel5.tmx", stage);
 
         Q.state.set("goalScore", 0);
         Q.state.set("currentScore", 0);
-        Q.state.set("nivel", 6);
-        Q.state.set("siguienteNivel", 7);
+        Q.state.set("nivel", 5);
+        Q.state.set("siguienteNivel", 6);
         Q.state.set("terminado", false);
         
         //Obstaculos
@@ -133,15 +132,15 @@ var game = function() {
         stage.insert(new Q.Obstaculo_lineal({recorrido: 64, duration: 0.5, x:548, y:176, sentido: false}));
     });
 
-    Q.scene("nivel7", function(stage){
+    Q.scene("nivel6", function(stage){
         stage.insert(new Q.Repeater({ asset: "fondo.png", speedX: 0.5, speedY: 0.5, type: 0 }));
 
-        Q.stageTMX("nivel7.tmx", stage);
+        Q.stageTMX("nivel6.tmx", stage);
 
         Q.state.set("goalScore", 2);
         Q.state.set("currentScore", 0);
-        Q.state.set("nivel", 7);
-        Q.state.set("siguienteNivel", 8);
+        Q.state.set("nivel", 6);
+        Q.state.set("siguienteNivel", 7);
         Q.state.set("terminado", false);
         
         //Obstaculos
@@ -165,17 +164,16 @@ var game = function() {
         stage.insert(new Q.Obstaculo_lineal({sentido: false, recorrido: 219, duration: 1, x: 390, y: 240}));
         stage.insert(new Q.Obstaculo_lineal({recorrido: 219, duration: 1, x: 420, y: 464}));
         stage.insert(new Q.Obstaculo_lineal({sentido: false, recorrido: 219, duration: 1, x: 450, y: 240}));
-        //stage.insert(new Q.Obstaculo_camino({x:270, y:240, ruta:[{x:270, y :240, t:1}, {x:270, y: 300, t:1}, {x:300, y: 300, t:1}, {x:270, y: 300, t:1}]}));
     });
 
-    Q.scene("nivel8", function(stage){
+    Q.scene("nivel7", function(stage){
         stage.insert(new Q.Repeater({ asset: "fondo.png", speedX: 0.5, speedY: 0.5, type: 0 }));
 
-        Q.stageTMX("nivel8.tmx", stage);
+        Q.stageTMX("nivel7.tmx", stage);
 
         Q.state.set("goalScore", 0);
         Q.state.set("currentScore", 0);
-        Q.state.set("nivel", 8);
+        Q.state.set("nivel", 7);
         Q.state.set("siguienteNivel", "final");
         Q.state.set("terminado", false);
 
@@ -262,20 +260,14 @@ var game = function() {
         }));
     });
 
-    Q.loadTMX("home.png, home2.png, tittle.png, credits.png, player_anim.png, player_anim.json, obstacle.png, meta.png, fondo.png, nivel1.tmx, nivel2.tmx, nivel3.tmx," + 
-        "nivel4.tmx, nivel5.tmx, nivel6.tmx, nivel7.tmx, nivel8.tmx, vida.png, vida.json, moneda.png,moneda.json, coin.mp3, hit.mp3", function() {
+    Q.loadTMX("home.png, home2.png, tittle.png, credits.png, player.png, obstacle.png, meta.png, fondo.png, nivel1.tmx, nivel2.tmx, nivel3.tmx," + 
+        "nivel4.tmx, nivel5.tmx, nivel6.tmx, nivel7.tmx, vida.png, vida.json, moneda.png,moneda.json, coin.mp3, hit.mp3", function() {
         Q.compileSheets("vida.png","vida.json");
         Q.compileSheets("moneda.png","moneda.json");
         Q.compileSheets("player_anim.png","player_anim.json");
 
-        Q.state.reset({goalScore: 1, currentScore: 0, lifes: 0, godMode: 0, nivel: 1, siguienteNivel: "nivel2", terminado: false, estado: 0});
+        Q.state.reset({goalScore: 1, currentScore: 0, lifes: 3, godMode: 0, nivel: 1, siguienteNivel: "nivel2", terminado: false, estado: 0});
         Q.stageScene('mainMenu');
-        //Q.stageScene("nivel1", 0);
-        //Q.stageScene("hud", 1);
-    });
-
-    Q.animations("player_anim", {
-        dying: {frames: [0, 1, 2, 3, 4], rate: 1/3, flip: false, loop: false, trigger:'finish'},
     });
 
     Q.animations("vida_anim", {
@@ -289,9 +281,7 @@ var game = function() {
     Q.Sprite.extend("Player", {
         init: function(p) {
             this._super(p, {
-                //asset: "player.png"
-                sprite: 'player_anim',
-                sheet: 'static'
+                asset: "player.png"
             });
 
             this.p.gravity = 0;
@@ -305,19 +295,6 @@ var game = function() {
 
         cambioEstado : function(){
             this.del("myControls, 2d"); //quito el 2d para que no siga colisionando y no haga movimientos raros el player
-            if(Q.state.get('estado') == 1){
-               //this.play('dying');
-            }
-        },
-
-        handleEnd : function () {
-            if(Q.state.get("lifes") > 0) {
-                Q.state.dec("lifes", 1);
-                Q.stageScene(Q.state.get("nivel"), 0);
-            }
-            else {
-                Q.stageScene("nivel1", 0);
-            }
         },
 
         godMode : function() {
@@ -405,13 +382,13 @@ var game = function() {
                     if (!this.p.hitted) {
                         this.p.hitted = true;
                         Q.audio.play('hit.mp3');
-                        //Q.state.set("estado", 1);
                         if(Q.state.get("lifes") > 0) {
                             this.trigger('playerDead');
                             Q.state.dec("lifes", 1);
                 			Q.stageScene("nivel" + Q.state.get("nivel"), 0);
                         }else {
                             Q.stageScene("nivel1", 0);
+                            Q.state.set("lifes", 3);
                         }
                     }
                 }
@@ -681,7 +658,7 @@ var game = function() {
         var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, 
                                             label: "Has ganado" }));
         button.on("click",function() {
-            Q.state.set("lifes", 0);
+            Q.state.set("lifes", 3);
             Q.state.set("godMode", 0);
             Q.clearStages();
             Q.stageScene("creditos_scene");
@@ -692,7 +669,7 @@ var game = function() {
     Q.UI.Text.extend("Vidas",{
         init: function(p) {
             this._super({
-                label: "Vidas: 0",
+                label: "Vidas: 3",
                 x: 0,
                 y: 0
             });
@@ -708,7 +685,7 @@ var game = function() {
     Q.UI.Text.extend("Nivel",{
         init: function(p) {
             this._super({
-                label: "Nivel: " + Q.state.get("nivel") + "/8" ,
+                label: "Nivel: " + Q.state.get("nivel") + "/7" ,
                 x: 305,
                 y: 0
             });
@@ -717,7 +694,7 @@ var game = function() {
         },
 
         niveles: function(score) {
-           this.p.label = "Nivel: " + Q.state.get("nivel") + "/8";
+           this.p.label = "Nivel: " + Q.state.get("nivel") + "/7";
         }
     });
 
