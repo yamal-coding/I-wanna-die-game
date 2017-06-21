@@ -290,7 +290,6 @@ var game = function() {
 
             Q.input.on("fire",this,"godMode");
             Q.state.on("change.estado", this, "cambioEstado");
-            this.on('finish', this.handleEnd);
         },
 
         cambioEstado : function(){
