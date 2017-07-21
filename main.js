@@ -200,7 +200,7 @@ var game = function() {
         var box = stage.insert(new Q.UI.Container({x: Q.width/2 - 315, y: 60}))
         var vidas = box.insert(new Q.Vidas());
         var niveles = box.insert(new Q.Nivel());
-        var godMode = box.insert(new Q.Modo_dios());
+        //var godMode = box.insert(new Q.Modo_dios());
     });
 
     Q.scene('creditos_scene', function(stage) {
@@ -266,7 +266,7 @@ var game = function() {
         Q.compileSheets("moneda.png","moneda.json");
         Q.compileSheets("player_anim.png","player_anim.json");
 
-        Q.state.reset({goalScore: 1, currentScore: 0, lifes: 3, godMode: 0, nivel: 1, siguienteNivel: "nivel2", terminado: false, estado: 0});
+        Q.state.reset({goalScore: 1, currentScore: 0, lifes: 3/*, godMode: 0*/, nivel: 1, siguienteNivel: "nivel2", terminado: false, estado: 0});
         Q.stageScene('mainMenu');
     });
 
@@ -288,7 +288,7 @@ var game = function() {
 
             this.add('2d, myControls, animation');
 
-            Q.input.on("fire",this,"godMode");
+            //Q.input.on("fire",this,"godMode");
             Q.state.on("change.estado", this, "cambioEstado");
         },
 
@@ -296,13 +296,13 @@ var game = function() {
             this.del("myControls, 2d"); //quito el 2d para que no siga colisionando y no haga movimientos raros el player
         },
 
-        godMode : function() {
+        /*godMode : function() {
         	if(Q.state.get("godMode") == 0) {
         		Q.state.set("godMode", 1);
         	}else {
         		Q.state.set("godMode", 0);
         	}
-        }
+        }*/
     });
 
     Q.Sprite.extend("Vida", {
@@ -377,7 +377,7 @@ var game = function() {
             });
             
             this.entity.on('sensor', function() {
-                if(Q.state.get("godMode") == 0) {
+                //if(Q.state.get("godMode") == 0) {
                     if (!this.p.hitted) {
                         this.p.hitted = true;
                         Q.audio.play('hit.mp3');
@@ -390,7 +390,7 @@ var game = function() {
                             Q.state.set("lifes", 3);
                         }
                     }
-                }
+                //}
             });
         }
     });
@@ -658,7 +658,7 @@ var game = function() {
                                             label: "Has ganado" }));
         button.on("click",function() {
             Q.state.set("lifes", 3);
-            Q.state.set("godMode", 0);
+            //Q.state.set("godMode", 0);
             Q.clearStages();
             Q.stageScene("creditos_scene");
         });
@@ -697,7 +697,7 @@ var game = function() {
         }
     });
 
-    Q.UI.Text.extend("Modo_dios",{
+    /*Q.UI.Text.extend("Modo_dios",{
         init: function(p) {
             this._super({
                 label: "Modo dios: off",
@@ -715,12 +715,13 @@ var game = function() {
         		this.p.label = "Modo dios: off";
         	}
         }
-    });
+    });*/
 
     Q.UI.Text.extend("Creditos",{
         init: function(p) {
             this._super({
-                label: "Diseñado y realizado por:" + "\n" + "\n" + "Yamal Al-Mahamid Vélez"+ "\n" + "Javier García Rodríguez",
+                label: "Diseñado y realizado por:\n\nYamal Al-Mahamid Vélez\nJavier García Rodríguez\n"
+                + "\nFacultad de Informática\n(Universidad Complutense de Madrid)",
                 color: "white",
                 x: Q.width/2,
                 y: 150
